@@ -240,7 +240,7 @@
       }
     ];
 
-    let state = JSON.parse(localStorage.getItem('questionsState')) || {};
+    let state = JSON.parse(localStorage.getItem('reactQuestionsState')) || {};
 
     function renderCategories() {
       const container = document.getElementById('categoriesContainer');
@@ -276,7 +276,7 @@
 
           checkbox.addEventListener('change', () => {
             state[idStr] = checkbox.checked;
-            localStorage.setItem('questionsState', JSON.stringify(state));
+            localStorage.setItem('reactQuestionsState', JSON.stringify(state));
             questionText.classList.toggle('completed', checkbox.checked);
             listItem.className = checkbox.checked ? 'question-item completed-cont' : 'question-item';
           });
