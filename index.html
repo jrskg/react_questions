@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Interview Prep</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --background-color: #f8f9fa;
+      --text-color: #2c3e50;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 3rem;
+      font-size: 2.5rem;
+    }
+
+    .category-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      padding: 2rem;
+      transition: transform 0.2s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-title {
+      color: var(--secondary-color);
+      margin-top: 0;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--secondary-color);
+      font-size: 1.5rem;
+    }
+
+    .questions-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .question-item {
+      padding: 1rem;
+      border-radius: 6px;
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .completed-cont {
+      background-color: rgb(142, 223, 122);
+    }
+
+    .question-item:hover {
+      background-color: rgba(52, 152, 219, 0.05);
+    }
+
+    .question-checkbox {
+      width: 20px;
+      height: 20px;
+      margin-right: 1rem;
+      accent-color: var(--secondary-color);
+      flex-shrink: 0;
+    }
+
+    .question-text {
+      flex-grow: 1;
+      margin: 0;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .category-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>React Interview Preparation</h1>
+    <div id="categoriesContainer"></div>
+  </div>
+
+  <script>
+    const categories = [
+      {
+        title: '⚛️ Core React Concepts',
+        startId: 1,
+        questions: [
+          "What is React and how does it work?",
+          "What is the difference between a class component and a functional component?",
+          "What is JSX and why is it used?",
+          "What are props in React?",
+          "What is state in React?",
+          "What is the Virtual DOM?",
+          "How does React handle rendering and updating the DOM?",
+          "What are keys in React and why are they important?",
+          "Explain React's component lifecycle methods (if using class components).",
+          "What are synthetic events in React?",
+          "What is the difference between elements and components?"
+        ]
+      },
+      {
+        title: '🪝 React Hooks',
+        startId: 12,
+        questions: [
+          "What is useState and how does it work?",
+          "What is useEffect and how does it work?",
+          "What is the difference between useEffect and useLayoutEffect?",
+          "What is useRef and what are its use cases?",
+          "What is useMemo and when should it be used?",
+          "What is useCallback and how does it help performance?",
+          "What are custom hooks and when would you create one?",
+          "How does useContext work?",
+          "What are the Rules of Hooks, and why do they exist?",
+          "When would you use useReducer instead of useState?",
+          "What is useImperativeHandle, and when would you use it?"
+        ]
+      },
+      {
+        title: '🚀 Advanced React Concepts',
+        startId: 23,
+        questions: [
+          "What is reconciliation in React?",
+          "Explain React's diffing algorithm.",
+          "What is React Fiber?",
+          "What is the significance of keys during rendering lists?",
+          "How do you optimize performance in React apps?",
+          "What is code splitting in React?",
+          "How does React handle errors (error boundaries)?",
+          "What is the difference between controlled and uncontrolled components?",
+          "What are render props?",
+          "What is the difference between HOC and custom hooks?",
+          "What are React Fragments, and why are they useful?",
+          "How does React's synthetic event system work?"
+        ]
+      },
+      {
+        title: '📦 State Management',
+        startId: 35,
+        questions: [
+          "How does lifting state up work in React?",
+          "What is prop drilling and how do you avoid it?",
+          "What is context API in React?",
+          "Compare Redux and Context API.",
+          "What are reducers and how are they used with useReducer or Redux?",
+          "What is middleware in Redux?",
+          "What are thunks and how are they used?",
+          "Explain the flow of data in a Redux application.",
+        ]
+      },
+      {
+        title: '🧭 Routing with React Router',
+        startId: 43,
+        questions: [
+          "What is React Router?",
+          "How do you set up routing in React?",
+          "What are dynamic routes?",
+          "How do you redirect programmatically?",
+          "What is the difference between BrowserRouter and HashRouter?"
+        ]
+      },
+      {
+        title: '🧪 Testing React Components',
+        startId: 48,
+        questions: [
+          "What are the different types of testing in React?",
+          "What is Jest and how is it used in React testing?",
+          "What is React Testing Library and how is it different from Enzyme?",
+          "How do you test components that use hooks?",
+          "How do you mock API calls in tests?"
+        ]
+      },
+      {
+        title: '⚡ React Performance Optimization',
+        startId: 53,
+        questions: [
+          "How do you prevent unnecessary re-renders?",
+          "What is React.memo and how does it work?",
+          "How do useMemo and useCallback help performance?",
+          "How do you lazy load components in React?",
+          "How to measure performance of a React app?",
+          "What is windowing/virtualization, and how does it improve performance?",
+          "How does immutability affect React's performance?",
+          "How do you use the React DevTools Profiler?"
+        ]
+      },
+      {
+        title: '🛠️ Practical React Tasks',
+        startId: 61,
+        questions: [
+          "Build a reusable button component with loading state.",
+          "Build a todo list using hooks.",
+          "Create a modal component.",
+          "Implement infinite scrolling in a list.",
+          "Create a form with validation using controlled components.",
+          "Implement dark/light mode toggle using context.",
+          "Build a custom hook for debounced search.",
+          "Build a file upload component with progress bar.",
+          "Implement a debounced search input with API calls.",
+          "Create a pagination component with dynamic API fetching.",
+          "Build a real-time chat component using WebSockets.",
+          "Integrate a form library like React Hook Form or Formik."
+        ]
+      }
+    ];
+
+    let state = JSON.parse(localStorage.getItem('questionsState')) || {};
+
+    function renderCategories() {
+      const container = document.getElementById('categoriesContainer');
+      container.innerHTML = '';
+
+      categories.forEach(category => {
+        const card = document.createElement('div');
+        card.className = 'category-card';
+
+        const title = document.createElement('h2');
+        title.className = 'category-title';
+        title.textContent = category.title;
+
+        const list = document.createElement('ul');
+        list.className = 'questions-list';
+
+        category.questions.forEach((question, index) => {
+          const id = category.startId + index;
+          const idStr = String(id);
+
+          const listItem = document.createElement('li');
+          listItem.className = 'question-item';
+
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.className = 'question-checkbox';
+          checkbox.checked = state[idStr] || false;
+
+          const questionText = document.createElement('span');
+          questionText.className = `question-text ${checkbox.checked ? 'completed' : ''}`;
+          questionText.textContent = `${id}. ${question}`;
+          listItem.className = checkbox.checked ? 'question-item completed-cont' : 'question-item';
+
+          checkbox.addEventListener('change', () => {
+            state[idStr] = checkbox.checked;
+            localStorage.setItem('questionsState', JSON.stringify(state));
+            questionText.classList.toggle('completed', checkbox.checked);
+            listItem.className = checkbox.checked ? 'question-item completed-cont' : 'question-item';
+          });
+
+          listItem.appendChild(checkbox);
+          listItem.appendChild(questionText);
+          list.appendChild(listItem);
+        });
+
+        card.appendChild(title);
+        card.appendChild(list);
+        container.appendChild(card);
+      });
+    }
+    renderCategories();
+  </script>
+</body>
+
+</html>
